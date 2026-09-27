@@ -1,0 +1,392 @@
+.stage {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 20%, #2b1055 0%, #0b0616 45%, #05030a 100%);
+  font-family: 'Vazirmatn', system-ui, sans-serif;
+}
+
+/* ستاره‌ها */
+.stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 0 6px #fff;
+  animation: twinkle infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* بادکنک‌ها */
+.balloon {
+  position: absolute;
+  bottom: -140px;
+  width: 48px;
+  height: 62px;
+  border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+  animation: floatUp linear infinite;
+  box-shadow: inset -6px -8px 12px rgba(0, 0, 0, 0.18);
+}
+
+.balloon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -26px;
+  width: 1px;
+  height: 26px;
+  background: rgba(255, 255, 255, 0.45);
+  transform: translateX(-50%);
+}
+
+.balloon::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+  clip-path: polygon(50% 0, 0 100%, 100% 100%);
+  transform: translateX(-50%);
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(-6deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.95;
+  }
+  90% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(-120vh) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+/* کاغذرنگی‌ها */
+.confetti {
+  position: absolute;
+  top: -20px;
+  animation: fall linear infinite;
+  opacity: 0.9;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* محتوای وسط */
+.content {
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+}
+
+.cake {
+  font-size: clamp(3rem, 10vw, 5.5rem);
+  animation: cakeBounce 2.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 24px rgba(255, 200, 80, 0.55));
+}
+
+@keyframes cakeBounce {
+  0%, 100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(4deg);
+  }
+}
+
+/* تیتر */
+.title-wrap {
+  margin: 10px 0 0;
+  font-size: clamp(2.2rem, 9vw, 6rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  min-height: 1.2em;
+  direction: rtl;
+}
+
+.title {
+  background: linear-gradient(
+    90deg,
+    #ff6ec4,
+    #ffd86f,
+    #6ee7ff,
+    #a78bfa,
+    #ff6ec4
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 4s linear infinite;
+  text-shadow: 0 0 40px rgba(255, 110, 196, 0.25);
+}
+
+@keyframes shine {
+  to {
+    background-position: 300% 0;
+  }
+}
+
+.caret {
+  display: inline-block;
+  width: 0.08em;
+  height: 1.1em;
+  margin-right: 0.08em;
+  vertical-align: -0.15em;
+  background: #ffd86f;
+  box-shadow: 0 0 18px #ffd86f;
+  animation: blink 0.85s step-end infinite;
+  border-radius: 2px;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* زیرنویس */
+.subtitle {
+  margin: 18px 0 0;
+  font-size: clamp(1rem, 2.6vw, 1.5rem);
+  color: rgba(255, 255, 255, 0.85);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.subtitle.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* دکمه تکرار */
+.replay {
+  margin-top: 28px;
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2b1055;
+  background: linear-gradient(135deg, #ffd86f, #ff6ec4);
+  box-shadow: 0 10px 30px rgba(255, 110, 196, 0.35);
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease,
+    box-shadow 0.3s ease;
+}
+
+.replay.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.replay:hover {
+  box-shadow: 0 14px 40px rgba(255, 110, 196, 0.55);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.replay:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* هاله‌های نور */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.orb-1 {
+  width: 320px;
+  height: 320px;
+  background: #ff6ec4;
+  top: -80px;
+  right: -60px;
+  animation: orbFloat 9s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 380px;
+  height: 380px;
+  background: #6ee7ff;
+  bottom: -120px;
+  left: -80px;
+  animation: orbFloat 11s ease-in-out infinite reverse;
+}
+
+@keyframes orbFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-20px, 30px) scale(1.08);
+  }
+}
+
+/* ---------- صفحه شروع ---------- */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.start-btn {
+  padding: 18px 42px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+  font-weight: 900;
+  color: #2b1055;
+  background: linear-gradient(135deg, #ffd86f, #ff6ec4);
+  box-shadow:
+    0 10px 40px rgba(255, 110, 196, 0.55),
+    0 0 0 0 rgba(255, 216, 111, 0.7);
+  animation: pulse 2s ease-in-out infinite;
+  transition: transform 0.25s ease;
+}
+
+.start-btn:hover {
+  transform: scale(1.05);
+}
+
+.start-btn:active {
+  transform: scale(0.97);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow:
+      0 10px 40px rgba(255, 110, 196, 0.55),
+      0 0 0 0 rgba(255, 216, 111, 0.7);
+  }
+  50% {
+    box-shadow:
+      0 10px 40px rgba(255, 110, 196, 0.75),
+      0 0 0 18px rgba(255, 216, 111, 0);
+  }
+}
+
+.intro-hint {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+}
+
+/* ---------- دکمه صدا ---------- */
+.mute-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 30;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1.15rem;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.mute-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.08);
+}
+
+/* ---------- لایه قلب‌ها ---------- */
+.hearts-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 4;
+}
+
+.heart {
+  position: absolute;
+  animation-name: heartFloat;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  transform-origin: center;
+  filter: drop-shadow(0 0 10px rgba(255, 110, 196, 0.7));
+  will-change: transform, opacity;
+  user-select: none;
+}
+
+@keyframes heartFloat {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.2) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(calc(var(--drift) * 0.15), -10px) scale(1.15) rotate(var(--rotate));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift), -260px) scale(0.7) rotate(calc(var(--rotate) * 2));
+  }
+}
+
+.down{
+  margin-top: 200px;
+}
